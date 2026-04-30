@@ -1,0 +1,60 @@
+# Mjölnir
+
+An opt-in AI development workflow for Claude Code. One command — `/mjolnir <description>` — engages a brainstorm → plan → execute → review pipeline backed by 11 skills and one code-reviewer subagent. Outside of `/mjolnir`, Claude Code stays out of your way.
+
+Forked from [superpowers](https://github.com/obra/superpowers) by Jesse Vincent. Trimmed and reshaped for personal use.
+
+## Install (local dev)
+
+```bash
+cd <any-project>
+claude --plugin-dir ~/Downloads/mjolnir
+```
+
+Inside Claude, `/plugin` should list `mjolnir` as enabled. Skills appear namespaced as `mjolnir:<name>`.
+
+## Usage
+
+```text
+/mjolnir add a CLI flag to skip the cache on cold starts
+```
+
+Mjölnir then:
+
+1. Detects whether you're in main or already in a worktree.
+2. Asks whether to create a (sub-)worktree for this work.
+3. Sets the operating root (the worktree's absolute path, or your current checkout).
+4. Routes to the right skill: brainstorming for vague intents, writing-plans for clear specs, systematic-debugging for bugs, etc.
+5. From there, the engaged skill carries the flow A → Z, writing specs/plans to `<operating-root>/.mjolnir/` (gitignored, never committed).
+
+## Design choices vs. superpowers
+
+| Choice | Mjölnir | Superpowers |
+|---|---|---|
+| Activation | Opt-in via `/mjolnir` | Auto-injected on every SessionStart |
+| Slash commands | One (`/mjolnir`) | Three (deprecated, redirect to skills) |
+| Specs/plans location | `<operating-root>/.mjolnir/` (gitignored) | `docs/superpowers/` (committed) |
+| Worktrees | Hierarchical (sub-worktrees allowed); fixed at `.mjolnir/worktrees/<branch>/`; one y/n question owned by `/mjolnir` | Asks where each invocation |
+| Execution | Subagent-driven only | Subagent-driven + inline-execution alternatives |
+| Branch finishing | Hand back to human partner | `finishing-a-development-branch` skill drives merge/PR |
+| `settings.json` | Not shipped (yours stays authoritative) | Not shipped |
+
+## Skills
+
+| Skill | Phase |
+|---|---|
+| `mjolnir:brainstorming` | design |
+| `mjolnir:writing-plans` | plan |
+| `mjolnir:subagent-driven-development` | execute |
+| `mjolnir:dispatching-parallel-agents` | execute (parallel) |
+| `mjolnir:test-driven-development` | execute |
+| `mjolnir:systematic-debugging` | quality |
+| `mjolnir:verification-before-completion` | quality |
+| `mjolnir:requesting-code-review` | review |
+| `mjolnir:receiving-code-review` | review |
+| `mjolnir:using-git-worktrees` | workflow |
+| `mjolnir:writing-skills` | meta |
+
+## License
+
+MIT. Inherits attribution from superpowers — see `LICENSE`.

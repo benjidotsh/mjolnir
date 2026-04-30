@@ -1,0 +1,102 @@
+---
+name: using-git-worktrees
+description: Use when invoked via /mjolnir or when the human partner explicitly asks for an isolated git worktree for feature work. Creates a worktree at .mjolnir/worktrees/<branch>/ relative to the current working tree, with no location-selection questions.
+---
+
+# Using Git Worktrees
+
+## Overview
+
+Git worktrees let you work on a separate branch in an isolated checkout without disturbing your current workspace. Mjölnir uses them as the default isolation primitive for non-trivial feature work.
+
+**Core principle:** the worktree is anchored at `<current-working-tree>/.mjolnir/worktrees/<branch>/`. There is no "where should I put it?" question — the location is fixed. If you're already in a worktree, the new one nests under it; git treats them all as peers regardless of on-disk hierarchy.
+
+**Announce at start:** "I'm using the using-git-worktrees skill to set up an isolated workspace."
+
+## Inputs
+
+The caller (typically `/mjolnir`, sometimes the human partner directly) provides a branch name. Sanitize it: lowercase, spaces → `-`, strip anything outside `[a-z0-9_/-]`.
+
+If invoked by `/mjolnir`, consent has already been given — do not ask again. If invoked directly, the human partner asked for it — do not ask again. There is no y/n prompt in this skill.
+
+## Steps
+
+### 1. Compute the target path
+
+```bash
+WORKTREE_ROOT=$(git rev-parse --show-toplevel)
+BRANCH=<sanitized-branch-name>
+TARGET="$WORKTREE_ROOT/.mjolnir/worktrees/$BRANCH"
+```
+
+`WORKTREE_ROOT` is the *current* working tree — main checkout if you're in main, the worktree's root if you're in one. The new worktree nests beneath whichever you're in.
+
+### 2. Ensure `.mjolnir/` is gitignored
+
+```bash
+cd "$WORKTREE_ROOT"
+if ! grep -qE '^/?\.mjolnir/?$' .gitignore 2>/dev/null; then
+  echo '.mjolnir/' >> .gitignore
+fi
+```
+
+The rule has no leading slash on purpose — it then matches `.mjolnir/` at every working-tree root, including the new worktree's own `.mjolnir/` for its specs and plans.
+
+**Do not commit the `.gitignore` change.** The human partner commits when they're ready. Mjölnir never commits on their behalf.
+
+### 3. Create the worktree
+
+```bash
+mkdir -p "$WORKTREE_ROOT/.mjolnir/worktrees"
+git worktree add "$TARGET" -b "$BRANCH"
+```
+
+If the branch already exists locally, drop the `-b` flag:
+
+```bash
+git worktree add "$TARGET" "$BRANCH"
+```
+
+### 4. Run project setup (auto-detected)
+
+```bash
+cd "$TARGET"
+[ -f package.json ] && npm install
+[ -f Cargo.toml ] && cargo build
+[ -f requirements.txt ] && pip install -r requirements.txt
+[ -f pyproject.toml ] && (poetry install 2>/dev/null || pip install -e . 2>/dev/null)
+[ -f go.mod ] && go mod download
+```
+
+Skip silently if nothing matches. Don't run a test baseline — that's a check the human partner can ask for explicitly if they care; running it by default adds latency for unclear value.
+
+### 5. Report
+
+Output the absolute path so the caller (or the human partner) knows where to operate next:
+
+```
+Worktree ready at <absolute-path>
+Operating root for this flow: <absolute-path>
+```
+
+## Common Mistakes
+
+### Anchoring at the wrong working tree
+
+`WORKTREE_ROOT` should come from `git rev-parse --show-toplevel` (current working tree), not `git rev-parse --git-common-dir` (always main's `.git`). If you're already in a worktree and you use the wrong command, the new worktree lands in main's `.mjolnir/worktrees/` instead of nesting.
+
+### Re-asking for consent
+
+The skill never asks "create a worktree?" — that decision lives upstream (in `/mjolnir` or in the human partner's explicit request). Asking again is friction.
+
+### Committing on behalf of the human partner
+
+Don't. The `.gitignore` line stays uncommitted until the human partner decides to commit it. Same for any other state this skill touches.
+
+## Integration
+
+**Called by:**
+- The `/mjolnir` slash command — at the start of a flow when worktree isolation is requested.
+- The human partner directly — when they ask for an isolated workspace.
+
+**No cleanup skill ships with Mjölnir.** When the work is done, the human partner manages cleanup themselves (`git worktree remove <path>` or by deleting the directory and running `git worktree prune`).
