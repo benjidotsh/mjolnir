@@ -1,11 +1,13 @@
 {
   "name": "mjolnir",
   "version": "0.1.0",
-  "description": "Opt-in AI development workflow for Claude Code: brainstorm, plan, execute, review. Forked from superpowers, tuned for explicit invocation via /mjolnir.",
+  "description": "Agentic development workflow based on Superpowers",
   "author": {
     "name": "Benjamin Janssens",
     "email": "benjamin.janssens@persgroep.net"
   },
+  "homepage": "https://github.com/benjidotsh/mjolnir",
+  "repository": "https://github.com/benjidotsh/mjolnir",
   "license": "MIT",
   "keywords": [
     "workflow",

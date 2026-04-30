@@ -1,17 +1,21 @@
 # Mjölnir
 
-An opt-in AI development workflow for Claude Code. One command — `/mjolnir <description>` — engages a brainstorm → plan → execute → review pipeline backed by 11 skills and one code-reviewer subagent. Outside of `/mjolnir`, Claude Code stays out of your way.
+*Agentic development workflow based on [obra/superpowers](https://github.com/obra/superpowers)*
 
-Forked from [superpowers](https://github.com/obra/superpowers) by Jesse Vincent. Trimmed and reshaped for personal use.
+One command — `/mjolnir <description>` — engages a brainstorm → plan → execute → review pipeline backed by 11 skills and one code-reviewer subagent.
 
-## Install (local dev)
+## Install
 
-```bash
-cd <any-project>
-claude --plugin-dir ~/Downloads/mjolnir
+Inside Claude Code:
+
+```text
+/plugin marketplace add benjidotsh/mjolnir
+/plugin install mjolnir@mjolnir
 ```
 
-Inside Claude, `/plugin` should list `mjolnir` as enabled. Skills appear namespaced as `mjolnir:<name>`.
+Verify with `/plugin` — `mjolnir` should appear under **Installed**. Skills are namespaced as `mjolnir:<name>`.
+
+Update later with `/plugin marketplace update mjolnir`. Uninstall with `/plugin uninstall mjolnir@mjolnir`.
 
 ## Usage
 

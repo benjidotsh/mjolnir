@@ -1,0 +1,14 @@
+{
+  "name": "mjolnir",
+  "owner": {
+    "name": "Benjamin Janssens",
+    "email": "benjamin.janssens@persgroep.net"
+  },
+  "description": "Marketplace hosting the Mjölnir plugin",
+  "plugins": [
+    {
+      "name": "mjolnir",
+      "source": "./"
+    }
+  ]
+}
