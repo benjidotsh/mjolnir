@@ -1,6 +1,7 @@
 ---
 name: subagent-driven-development
-description: Use when invoked via /mjolnir or when the human partner has an approved plan and wants it executed task-by-task with a fresh subagent per task and review between tasks. Mjölnir's only execution path.
+description: Use when invoked via /mjolnir:new or when the human partner has an approved plan and wants it executed task-by-task with a fresh subagent per task and review between tasks. Mjölnir's only execution path.
+user-invocable: false
 ---
 
 # Subagent-Driven Development

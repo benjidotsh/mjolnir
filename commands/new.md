@@ -3,7 +3,7 @@ description: Opt-in entry point for the Mjölnir workflow. Sets up an operating 
 argument-hint: <description of the work>
 ---
 
-# /mjolnir
+# /mjolnir:new
 
 The human partner has explicitly opted into the Mjölnir workflow for this task. Treat that as informed consent: this is heavier machinery than a one-shot answer, and they want it engaged.
 
@@ -55,6 +55,6 @@ If `$ARGUMENTS` is ambiguous between options, ask the human partner one short cl
 
 ## Notes on this command
 
-- `/mjolnir` does not itself produce code, plans, or specs. It scaffolds the operating root and hands off. The actual work happens inside the routed skill.
-- If the human partner invokes `/mjolnir` from outside a git repo, abort with a clear message: Mjölnir's storage model assumes a repo (`.mjolnir/` is gitignored at the repo root).
+- `/mjolnir:new` does not itself produce code, plans, or specs. It scaffolds the operating root and hands off. The actual work happens inside the routed skill.
+- If the human partner invokes `/mjolnir:new` from outside a git repo, abort with a clear message: Mjölnir's storage model assumes a repo (`.mjolnir/` is gitignored at the repo root).
 - If `$ARGUMENTS` is empty, ask the human partner what they want to work on before doing any of the above.

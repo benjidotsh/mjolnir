@@ -1,6 +1,7 @@
 ---
 name: verification-before-completion
 description: Use when about to claim work is complete, fixed, or passing — before any success claim, run the verification commands and report what you actually saw. Evidence before assertions, always. Triggers automatically on phrases like "done", "fixed", "ready to merge", "tests passing".
+user-invocable: false
 ---
 
 # Verification Before Completion

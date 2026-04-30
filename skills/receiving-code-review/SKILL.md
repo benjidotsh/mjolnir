@@ -1,6 +1,7 @@
 ---
 name: receiving-code-review
 description: Use when the human partner is responding to code review feedback (from mjolnir:code-reviewer or from a human reviewer). Encourages technical rigor — restate the requirement, verify the claim, evaluate, then implement one item at a time. Not performative agreement, not blind compliance.
+user-invocable: false
 ---
 
 # Code Review Reception

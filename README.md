@@ -2,7 +2,7 @@
 
 *Agentic development workflow based on [obra/superpowers](https://github.com/obra/superpowers)*
 
-One command — `/mjolnir <description>` — engages a brainstorm → plan → execute → review pipeline backed by 11 skills and one code-reviewer subagent.
+One command — `/mjolnir:new <description>` — engages a brainstorm → plan → execute → review pipeline backed by 11 skills and one code-reviewer subagent.
 
 ## Install
 
@@ -20,7 +20,7 @@ Update later with `/plugin marketplace update mjolnir`. Uninstall with `/plugin 
 ## Usage
 
 ```text
-/mjolnir add a CLI flag to skip the cache on cold starts
+/mjolnir:new add a CLI flag to skip the cache on cold starts
 ```
 
 Mjölnir then:
@@ -35,10 +35,10 @@ Mjölnir then:
 
 | Choice | Mjölnir | Superpowers |
 |---|---|---|
-| Activation | Opt-in via `/mjolnir` | Auto-injected on every SessionStart |
-| Slash commands | One (`/mjolnir`) | Three (deprecated, redirect to skills) |
+| Activation | Opt-in via `/mjolnir:new` | Auto-injected on every SessionStart |
+| Slash commands | One (`/mjolnir:new`) | Three (deprecated, redirect to skills) |
 | Specs/plans location | `<operating-root>/.mjolnir/` (gitignored) | `docs/superpowers/` (committed) |
-| Worktrees | Hierarchical (sub-worktrees allowed); fixed at `.mjolnir/worktrees/<branch>/`; one y/n question owned by `/mjolnir` | Asks where each invocation |
+| Worktrees | Hierarchical (sub-worktrees allowed); fixed at `.mjolnir/worktrees/<branch>/`; one y/n question owned by `/mjolnir:new` | Asks where each invocation |
 | Execution | Subagent-driven only | Subagent-driven + inline-execution alternatives |
 | Branch finishing | Hand back to human partner | `finishing-a-development-branch` skill drives merge/PR |
 | `settings.json` | Not shipped (yours stays authoritative) | Not shipped |

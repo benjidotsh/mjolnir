@@ -1,6 +1,7 @@
 ---
 name: writing-skills
-description: Use when invoked via /mjolnir or when the human partner asks to create, edit, or pressure-test a skill (a SKILL.md file). Applies TDD to skill authoring — test the baseline agent failure, write the skill, verify compliance, refactor loopholes.
+description: Use when invoked via /mjolnir:new or when the human partner asks to create, edit, or pressure-test a skill (a SKILL.md file). Applies TDD to skill authoring — test the baseline agent failure, write the skill, verify compliance, refactor loopholes.
+user-invocable: false
 ---
 
 # Writing Skills

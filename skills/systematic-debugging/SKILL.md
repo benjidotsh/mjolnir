@@ -1,6 +1,7 @@
 ---
 name: systematic-debugging
-description: Use when invoked via /mjolnir or when the human partner reports a bug, test failure, or unexpected behavior. Runs the 4-phase root-cause discovery before any fix is proposed — no shotgun debugging, no jumping to conclusions.
+description: Use when invoked via /mjolnir:new or when the human partner reports a bug, test failure, or unexpected behavior. Runs the 4-phase root-cause discovery before any fix is proposed — no shotgun debugging, no jumping to conclusions.
+user-invocable: false
 ---
 
 # Systematic Debugging

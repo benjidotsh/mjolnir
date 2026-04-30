@@ -1,6 +1,7 @@
 ---
 name: brainstorming
-description: "Use when invoked via /mjolnir or when the human partner asks for help designing a feature, refining requirements, or exploring approaches before any implementation. Surfaces intent and trade-offs through dialogue and produces a written spec at <operating-root>/.mjolnir/specs/."
+description: "Use when invoked via /mjolnir:new or when the human partner asks for help designing a feature, refining requirements, or exploring approaches before any implementation. Surfaces intent and trade-offs through dialogue and produces a written spec at <operating-root>/.mjolnir/specs/."
+user-invocable: false
 ---
 
 # Brainstorming Ideas Into Designs
@@ -108,7 +109,7 @@ digraph brainstorming {
 
 **Documentation:**
 
-- Write the validated design (spec) to `<operating-root>/.mjolnir/specs/YYYY-MM-DD-<topic>-design.md`. The operating root is set by `/mjolnir` at the start of a flow; if invoked directly without `/mjolnir`, fall back to `git rev-parse --show-toplevel`.
+- Write the validated design (spec) to `<operating-root>/.mjolnir/specs/YYYY-MM-DD-<topic>-design.md`. The operating root is set by `/mjolnir:new` at the start of a flow; if invoked directly without `/mjolnir:new`, fall back to `git rev-parse --show-toplevel`.
 - Before the first write of the session, ensure `.mjolnir/` is in the project's `.gitignore` at the operating root. Append the line if missing; don't commit.
 - Do **not** commit the spec — the directory is gitignored on purpose, and committing meta-files into the project repo is not Mjölnir's job.
 

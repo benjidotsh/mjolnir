@@ -1,6 +1,7 @@
 ---
 name: writing-plans
-description: Use when invoked via /mjolnir or when the human partner has a spec or clear requirements for a multi-step task and wants a bite-sized implementation plan before code is written. Produces a plan at <operating-root>/.mjolnir/plans/.
+description: Use when invoked via /mjolnir:new or when the human partner has a spec or clear requirements for a multi-step task and wants a bite-sized implementation plan before code is written. Produces a plan at <operating-root>/.mjolnir/plans/.
+user-invocable: false
 ---
 
 # Writing Plans
@@ -13,7 +14,7 @@ Assume they are a skilled developer, but know almost nothing about our toolset o
 
 **Announce at start:** "I'm using the writing-plans skill to create the implementation plan."
 
-**Save plans to:** `<operating-root>/.mjolnir/plans/YYYY-MM-DD-<feature-name>.md`. The operating root is set by `/mjolnir`; if invoked directly without `/mjolnir`, fall back to `git rev-parse --show-toplevel`. Before writing, ensure `.mjolnir/` is in the project's `.gitignore` at that root (append the line if missing; don't commit).
+**Save plans to:** `<operating-root>/.mjolnir/plans/YYYY-MM-DD-<feature-name>.md`. The operating root is set by `/mjolnir:new`; if invoked directly without `/mjolnir:new`, fall back to `git rev-parse --show-toplevel`. Before writing, ensure `.mjolnir/` is in the project's `.gitignore` at that root (append the line if missing; don't commit).
 
 Do not commit the plan file. The directory is gitignored on purpose.
 
