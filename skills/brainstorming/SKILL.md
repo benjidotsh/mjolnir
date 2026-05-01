@@ -143,7 +143,7 @@ After writing the spec document, look at it with fresh eyes:
 Fix any issues inline. No need to re-review — just fix and move on.
 
 **User Review Gate:**
-After the spec review loop passes, the human partner has already aligned with you on most of the spec — those parts were the conversation. Don't make them re-read them. Instead, identify the spec sections that were *not* explicitly discussed (sections expanded from inferred defaults, filler added during the self-review pass, sections that were only mentioned in passing) and ask the human partner to review only those.
+After the spec review loop passes, the human partner has already aligned with you on most of the spec — those parts were the conversation. Don't make them re-read them. Instead, identify the spec sections that were *not* explicitly discussed (sections expanded from inferred defaults, filler added during the self-review pass) and ask the human partner to review only those.
 
 How to identify undiscussed sections: walk the spec section by section. For each one, ask yourself: "did the human partner and I talk through this, or did I write it from inference?" If you talked through it — even briefly — count it as discussed. If you filled it in alone, it goes in the review list.
 
