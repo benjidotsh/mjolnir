@@ -36,27 +36,22 @@ TARGET="$WORKTREE_ROOT/.mjolnir/worktrees/$BRANCH"
 
 The new worktree branches off the parent's current commit, so the `.mjolnir/` ignore rule must already be in that commit or the new worktree will see its own `.mjolnir/` directory as untracked.
 
+If `.gitignore` doesn't yet contain the rule, the bash block below will append it **and** commit it on the parent branch in a single step. Before running it, **tell the human partner first**, in one line, so the commit doesn't appear out of nowhere:
+
+> "Adding `.mjolnir/` to `.gitignore` and committing it on your current branch `<current-branch>` so the new worktree inherits the rule."
+
 ```bash
 cd "$WORKTREE_ROOT"
 if ! grep -qE '^/?\.mjolnir/?$' .gitignore 2>/dev/null; then
   echo '.mjolnir/' >> .gitignore
+  git add .gitignore
+  git commit -m "chore: ignore .mjolnir/ workspace directory"
 fi
 ```
 
 The rule has no leading slash on purpose — it then matches `.mjolnir/` at every working-tree root, including the new worktree's own `.mjolnir/` for its specs and plans.
 
-If the line was just appended (i.e. `.gitignore` is now dirty in `git status` for this rule), commit it on the parent branch before creating the worktree. **Tell the human partner first**, in one line, so the commit doesn't appear out of nowhere:
-
-> "Adding `.mjolnir/` to `.gitignore` and committing it on `<current-branch>` so the new worktree inherits the rule."
-
-Then commit only the `.gitignore`:
-
-```bash
-git add .gitignore
-git commit -m "chore: ignore .mjolnir/ workspace directory"
-```
-
-If `.gitignore` already contained the rule, skip the notice and the commit — there is nothing to do.
+If `.gitignore` already contained the rule, the `if` is a no-op — no commit, no notice needed.
 
 This is the one exception to Mjölnir's "never commit on the human partner's behalf" rule: the commit is mechanically required for the next step (creating the worktree) to produce a clean checkout, the diff is one line in `.gitignore`, and the human partner is informed before it happens.
 
