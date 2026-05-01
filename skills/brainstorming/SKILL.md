@@ -29,7 +29,7 @@ You MUST create a task for each of these items and complete them in order:
 5. **Present design** — in sections scaled to their complexity, get user approval after each section
 6. **Write design doc** — save to `<operating-root>/.mjolnir/specs/YYYY-MM-DD-<topic>-design.md` (no commit; the directory is gitignored)
 7. **Spec self-review** — quick inline check for placeholders, contradictions, ambiguity, scope (see below)
-8. **User reviews written spec** — ask user to review the spec file before proceeding
+8. **User reviews undiscussed sections** — list which spec sections were *not* covered in the conversation; ask the user to review only those
 9. **Transition to implementation** — invoke writing-plans skill to create implementation plan
 
 ## Process Flow
@@ -45,7 +45,7 @@ digraph brainstorming {
     "User approves design?" [shape=diamond];
     "Write design doc" [shape=box];
     "Spec self-review\n(fix inline)" [shape=box];
-    "User reviews spec?" [shape=diamond];
+    "User reviews undiscussed sections?" [shape=diamond];
     "Invoke writing-plans skill" [shape=doublecircle];
 
     "Explore project context" -> "Visual questions ahead?";
@@ -58,9 +58,9 @@ digraph brainstorming {
     "User approves design?" -> "Present design sections" [label="no, revise"];
     "User approves design?" -> "Write design doc" [label="yes"];
     "Write design doc" -> "Spec self-review\n(fix inline)";
-    "Spec self-review\n(fix inline)" -> "User reviews spec?";
-    "User reviews spec?" -> "Write design doc" [label="changes requested"];
-    "User reviews spec?" -> "Invoke writing-plans skill" [label="approved"];
+    "Spec self-review\n(fix inline)" -> "User reviews undiscussed sections?";
+    "User reviews undiscussed sections?" -> "Write design doc" [label="changes requested"];
+    "User reviews undiscussed sections?" -> "Invoke writing-plans skill" [label="approved"];
 }
 ```
 
@@ -124,11 +124,27 @@ After writing the spec document, look at it with fresh eyes:
 Fix any issues inline. No need to re-review — just fix and move on.
 
 **User Review Gate:**
-After the spec review loop passes, ask the user to review the written spec before proceeding:
+After the spec review loop passes, the human partner has already aligned with you on most of the spec — those parts were the conversation. Don't make them re-read them. Instead, identify the spec sections that were *not* explicitly discussed (sections expanded from inferred defaults, filler added during the self-review pass, sections that were only mentioned in passing) and ask the human partner to review only those.
 
-> "Spec written to `<path>`. Please review it and let me know if you want to make any changes before we start writing out the implementation plan."
+How to identify undiscussed sections: walk the spec section by section. For each one, ask yourself: "did the human partner and I talk through this, or did I write it from inference?" If you talked through it — even briefly — count it as discussed. If you filled it in alone, it goes in the review list.
 
-Wait for the user's response. If they request changes, make them and re-run the spec review loop. Only proceed once the user approves.
+Format the message like this:
+
+> "Spec written to `<path>`. Most sections track what we discussed:
+> - **\<section name 1\>** — already aligned, no review needed
+> - **\<section name 2\>** — already aligned, no review needed
+>
+> These sections weren't covered explicitly — please review them:
+> - **\<undiscussed section name\>**: \<one-line summary of what you wrote\>
+> - **\<undiscussed section name\>**: \<one-line summary of what you wrote\>
+>
+> Let me know if you want to change anything in the undiscussed sections (or anywhere else) before we start the implementation plan."
+
+If every section was discussed, say so explicitly and ask only for a final ack:
+
+> "Spec written to `<path>`. Every section tracks what we discussed — nothing new was inferred. Ack to proceed to the implementation plan, or flag anything you want to revisit."
+
+Wait for the user's response. If they request changes, make them and re-run the spec review loop. Only proceed once the user acks or approves.
 
 **Implementation:**
 
