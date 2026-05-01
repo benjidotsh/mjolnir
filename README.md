@@ -38,7 +38,7 @@ Mjölnir then:
 | Activation | Opt-in via `/mjolnir:new` | Auto-injected on every SessionStart |
 | Slash commands | One (`/mjolnir:new`) | Three (deprecated, redirect to skills) |
 | Specs/plans location | `<operating-root>/.mjolnir/` (gitignored) | `docs/superpowers/` (committed) |
-| Worktrees | Hierarchical (sub-worktrees allowed); fixed at `.mjolnir/worktrees/<branch>/`; one y/n question owned by `/mjolnir:new` | Asks where each invocation |
+| Worktrees | Hierarchical (sub-worktrees allowed); fixed at `.mjolnir/worktrees/<branch>/`; one structured prompt owned by `/mjolnir:new` | Asks where each invocation |
 | Execution | Subagent-driven only | Subagent-driven + inline-execution alternatives |
 | Branch finishing | Hand back to human partner | `finishing-a-development-branch` skill drives merge/PR |
 | `settings.json` | Not shipped (yours stays authoritative) | Not shipped |
