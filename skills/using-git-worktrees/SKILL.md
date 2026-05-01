@@ -32,18 +32,34 @@ TARGET="$WORKTREE_ROOT/.mjolnir/worktrees/$BRANCH"
 
 `WORKTREE_ROOT` is the *current* working tree — main checkout if you're in main, the worktree's root if you're in one. The new worktree nests beneath whichever you're in.
 
-### 2. Ensure `.mjolnir/` is gitignored
+### 2. Ensure `.mjolnir/` is gitignored — and commit it before branching
+
+The new worktree branches off the parent's current commit, so the `.mjolnir/` ignore rule must already be in that commit or the new worktree will see its own `.mjolnir/` directory as untracked.
+
+First, probe whether the rule is already present:
 
 ```bash
 cd "$WORKTREE_ROOT"
-if ! grep -qE '^/?\.mjolnir/?$' .gitignore 2>/dev/null; then
-  echo '.mjolnir/' >> .gitignore
-fi
+grep -qE '^/?\.mjolnir/?$' .gitignore 2>/dev/null
+```
+
+If `grep` exits 0 (rule already present), skip the rest of this step entirely — no notice, no commit, nothing to do.
+
+If `grep` exits non-zero (rule missing), tell the human partner first, in one line, so the commit doesn't appear out of nowhere:
+
+> "Adding `.mjolnir/` to `.gitignore` and committing it on your current branch `<current-branch>` so the new worktree inherits the rule."
+
+Then append the rule and commit it on the parent branch:
+
+```bash
+echo '.mjolnir/' >> .gitignore
+git add .gitignore
+git commit -m "chore: ignore .mjolnir/ workspace directory"
 ```
 
 The rule has no leading slash on purpose — it then matches `.mjolnir/` at every working-tree root, including the new worktree's own `.mjolnir/` for its specs and plans.
 
-**Do not commit the `.gitignore` change.** The human partner commits when they're ready. Mjölnir never commits on their behalf.
+This is the one exception to Mjölnir's "never commit on the human partner's behalf" rule: the commit is mechanically required for the next step (creating the worktree) to produce a clean checkout, the diff is one line in `.gitignore`, and the human partner is informed before it happens.
 
 ### 3. Create the worktree
 
@@ -92,7 +108,7 @@ The skill never asks "create a worktree?" — that decision lives upstream (in `
 
 ### Committing on behalf of the human partner
 
-Don't. The `.gitignore` line stays uncommitted until the human partner decides to commit it. Same for any other state this skill touches.
+Only the `.gitignore` line for `.mjolnir/` is committed automatically by this skill, and only when it was just appended — see Step 2 for the rationale and the user-notice rule. Don't commit anything else this skill touches.
 
 ## Integration
 

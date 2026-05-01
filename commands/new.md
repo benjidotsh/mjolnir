@@ -22,15 +22,17 @@ If `--show-toplevel` and `dirname --git-common-dir` differ, you're already insid
 
 ## Step 2 — Ask whether to create a (sub-)worktree
 
-Always ask, regardless of where you are. The phrasing depends on context:
+Always ask, regardless of where you are. Use the `AskUserQuestion` tool — never plain text — so the human partner gets a structured prompt with labeled options.
 
-- In main: **"Create a worktree for this work? (y/n)"**
-- In a worktree: **"Create a sub-worktree for this work? (y/n — 'n' = continue in the current worktree)"**
+Tool call shape (phrasing varies by context):
+
+- In main checkout — `question`: `"Create a worktree for this work?"`, `header`: `"Worktree"`, `multiSelect`: `false`, `options`: `[{"label": "Yes, create worktree", "description": "Create an isolated worktree under .mjolnir/worktrees/ for this task"}, {"label": "No, work in main", "description": "Continue working in the current main checkout"}]`
+- Already in a worktree — `question`: `"Create a sub-worktree for this work?"`, `header`: `"Sub-worktree"`, `multiSelect`: `false`, `options`: `[{"label": "Yes, create sub-worktree", "description": "Nest a new worktree under the current one for this task"}, {"label": "No, continue here", "description": "Stay in the current worktree"}]`
 
 Wait for the answer. Don't infer.
 
-- On `y`: invoke the `mjolnir:using-git-worktrees` skill. Pass it a branch name derived from `$ARGUMENTS` (sanitize: lowercase, spaces → `-`, strip non-`[a-z0-9_/-]`). The skill creates the worktree at `<current-cwd>/.mjolnir/worktrees/<branch>/` and returns the absolute path. **Operating root** = that path.
-- On `n`: **operating root** = the current `--show-toplevel`.
+- On a "Yes" answer: invoke the `mjolnir:using-git-worktrees` skill. Pass it a branch name derived from `$ARGUMENTS` (sanitize: lowercase, spaces → `-`, strip non-`[a-z0-9_/-]`). The skill creates the worktree at `<current-cwd>/.mjolnir/worktrees/<branch>/` and returns the absolute path. **Operating root** = that path.
+- On a "No" answer: **operating root** = the current `--show-toplevel`.
 
 ## Step 3 — Anchor the operating root, then route
 
