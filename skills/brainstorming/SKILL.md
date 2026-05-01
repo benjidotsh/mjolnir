@@ -110,7 +110,26 @@ digraph brainstorming {
 **Documentation:**
 
 - Write the validated design (spec) to `<operating-root>/.mjolnir/specs/YYYY-MM-DD-<topic>-design.md`. The operating root is set by `/mjolnir:new` at the start of a flow; if invoked directly without `/mjolnir:new`, fall back to `git rev-parse --show-toplevel`.
-- Before the first write of the session, ensure `.mjolnir/` is in the project's `.gitignore` at the operating root. Append the line if missing; don't commit.
+- Before the first write of the session, ensure `.mjolnir/` is in the project's `.gitignore` at the operating root. Probe first:
+
+  ```bash
+  cd "<operating-root>"
+  grep -qE '^/?\.mjolnir/?$' .gitignore 2>/dev/null
+  ```
+
+  If `grep` exits 0 (rule already present), nothing to do — proceed to the spec write. If `grep` exits non-zero (rule missing), tell the human partner first, in one line, so the commit doesn't appear out of nowhere:
+
+  > "Adding `.mjolnir/` to `.gitignore` and committing it on your current branch `<current-branch>` so the spec directory stays out of the repo."
+
+  Then append the rule and commit it on the current branch:
+
+  ```bash
+  echo '.mjolnir/' >> .gitignore
+  git add .gitignore
+  git commit -m "chore: ignore .mjolnir/ workspace directory"
+  ```
+
+  Same exception as the using-git-worktrees skill: this is a one-line, mechanically-required commit that's announced before it fires.
 - Do **not** commit the spec — the directory is gitignored on purpose, and committing meta-files into the project repo is not Mjölnir's job.
 
 **Spec Self-Review:**
