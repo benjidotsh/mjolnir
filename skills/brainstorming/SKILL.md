@@ -150,12 +150,12 @@ How to identify undiscussed sections: walk the spec section by section. For each
 Format the message like this:
 
 > "Spec written to `<path>`. Most sections track what we discussed:
-> - **\<section name 1\>** — already aligned, no review needed
-> - **\<section name 2\>** — already aligned, no review needed
+> - **<section name 1>** — already aligned, no review needed
+> - **<section name 2>** — already aligned, no review needed
 >
 > These sections weren't covered explicitly — please review them:
-> - **\<undiscussed section name\>**: \<one-line summary of what you wrote\>
-> - **\<undiscussed section name\>**: \<one-line summary of what you wrote\>
+> - **<undiscussed section name>**: <one-line summary of what you wrote>
+> - **<undiscussed section name>**: <one-line summary of what you wrote>
 >
 > Let me know if you want to change anything in the undiscussed sections (or anywhere else) before we start the implementation plan."
 
