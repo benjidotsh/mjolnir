@@ -44,8 +44,8 @@ Then route based on what `$ARGUMENTS` describes. Pick one — don't fan out:
 
 | If the human partner is describing... | Engage |
 |---|---|
-| a vague intent, a goal, no spec yet | `mjolnir:brainstorming` |
-| a clear spec or written requirements, ready to plan | `mjolnir:writing-plans` |
+| a feature, change, or goal — and no written spec artifact exists yet | `mjolnir:brainstorming` |
+| a written spec artifact already exists (a `.mjolnir/specs/` file, a linked design doc, or pasted requirements that already cover scope, constraints, and success criteria) | `mjolnir:writing-plans` |
 | an existing plan they want executed | `mjolnir:subagent-driven-development` |
 | a bug, a test failure, an unexpected behavior | `mjolnir:systematic-debugging` |
 | a feature they want built test-first | `mjolnir:test-driven-development` |
@@ -53,7 +53,9 @@ Then route based on what `$ARGUMENTS` describes. Pick one — don't fan out:
 | review feedback they're responding to | `mjolnir:receiving-code-review` |
 | 2+ independent things to investigate in parallel | `mjolnir:dispatching-parallel-agents` |
 
-If `$ARGUMENTS` is ambiguous between options, ask the human partner one short clarifying question before routing — don't guess.
+**Default to `brainstorming` for anything design-shaped.** A confidently-phrased one-liner ("add X to Y", "refactor Z to do W", "build a thing that does Q") is *intent*, not a spec. The bar for `writing-plans` is an artifact you can point at — not a feeling that the request sounded clear. If no such artifact exists, route to `brainstorming` even when the request seems obvious. A short design pass surfaces hidden assumptions cheaply; skipping it and discovering them mid-implementation is expensive. Bug reports, code review, and executing an existing plan are not design-shaped — route those by their own rows.
+
+If `$ARGUMENTS` is genuinely ambiguous between two non-brainstorming routes (e.g., bug vs. review feedback), ask the human partner one short clarifying question before routing — don't guess.
 
 ## Notes on this command
 
