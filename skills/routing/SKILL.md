@@ -20,15 +20,7 @@ The caller passes:
 
 ## Steps
 
-### 1. Confirm the operating-root anchor was echoed
-
-The entry command should already have echoed:
-
-> "Operating root for this flow: `<absolute-path>`. All `.mjolnir/specs/`, `.mjolnir/plans/`, etc. resolve under that path."
-
-If for any reason it wasn't echoed (e.g., this skill was invoked directly), echo it now before continuing.
-
-### 2. Route based on the description
+### 1. Route based on the description
 
 | If the human partner is describing... | Engage |
 |---|---|
@@ -49,3 +41,4 @@ If the description is genuinely ambiguous between two non-brainstorming routes (
 
 - The repo guard and empty-arguments guard live in the entry commands, not here. By the time this skill runs, both have already passed.
 - Pick exactly one downstream skill — don't fan out.
+- The entry command is responsible for echoing the operating-root anchor line before calling this skill.
