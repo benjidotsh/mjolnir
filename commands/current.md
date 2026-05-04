@@ -26,4 +26,5 @@ Invoke the `mjolnir:routing` skill with `{ operating_root: <absolute-path>, desc
 ## Notes
 
 - No isolation work happens here. Use this when you've already set up the branch/worktree the way you want and just need Mjölnir's routing.
+- This command does not inspect the working tree. If it's dirty, downstream skills will operate on top of those uncommitted changes — that's on you. Use `/mjolnir:branch` if you want a structured stash/discard prompt before proceeding.
 - This command does not produce code, plans, or specs. The actual work happens inside the routed skill.

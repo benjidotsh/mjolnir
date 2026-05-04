@@ -18,6 +18,8 @@ Git worktrees let you work on a separate branch in an isolated checkout without 
 
 The caller (typically `/mjolnir:worktree`, sometimes the human partner directly) provides a branch name. Sanitize it: lowercase, spaces → `-`, strip anything outside `[a-z0-9_/-]`.
 
+> **Note for skill authors:** This is the one Mjölnir skill whose description names a slash command directly (`/mjolnir:worktree`) instead of using the generic "Mjölnir entry command" prefix. That's intentional — this skill has exactly one upstream caller, so the specific reference is more accurate. Don't "harmonize" it back to the generic prefix.
+
 If invoked by `/mjolnir:worktree`, consent has already been given — do not ask again. If invoked directly, the human partner asked for it — do not ask again. There is no y/n prompt in this skill.
 
 ## Steps
