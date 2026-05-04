@@ -1,6 +1,6 @@
 ---
 name: test-driven-development
-description: Use when invoked via /mjolnir:new or when the human partner is implementing any feature or bugfix and wants the test-first cycle. RED → GREEN → REFACTOR → commit, one cycle at a time.
+description: Use when invoked by a Mjölnir entry command or when the human partner is implementing any feature or bugfix and wants the test-first cycle. RED → GREEN → REFACTOR → commit, one cycle at a time.
 user-invocable: false
 ---
 

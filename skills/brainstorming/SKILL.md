@@ -1,6 +1,6 @@
 ---
 name: brainstorming
-description: "Use when invoked via /mjolnir:new or when the human partner asks for help designing a feature, refining requirements, or exploring approaches before any implementation. Surfaces intent and trade-offs through dialogue and produces a written spec at <operating-root>/.mjolnir/specs/."
+description: "Use when invoked by a Mjölnir entry command or when the human partner asks for help designing a feature, refining requirements, or exploring approaches before any implementation. Surfaces intent and trade-offs through dialogue and produces a written spec at <operating-root>/.mjolnir/specs/."
 user-invocable: false
 ---
 
@@ -109,7 +109,7 @@ digraph brainstorming {
 
 **Documentation:**
 
-- Write the validated design (spec) to `<operating-root>/.mjolnir/specs/YYYY-MM-DD-<topic>-design.md`. The operating root is set by `/mjolnir:new` at the start of a flow; if invoked directly without `/mjolnir:new`, fall back to `git rev-parse --show-toplevel`.
+- Write the validated design (spec) to `<operating-root>/.mjolnir/specs/YYYY-MM-DD-<topic>-design.md`. The operating root is set by the Mjölnir entry command (/mjolnir:worktree, /mjolnir:branch, or /mjolnir:current) at the start of a flow; if invoked directly without an entry command, fall back to `git rev-parse --show-toplevel`.
 - Before the first write of the session, ensure `.mjolnir/` is in the project's `.gitignore` at the operating root. Probe first:
 
   ```bash

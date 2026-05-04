@@ -1,6 +1,6 @@
 ---
 name: dispatching-parallel-agents
-description: Use when invoked via /mjolnir:new or when the human partner has 2+ independent tasks that can run without shared state. Fans them out to subagents with isolated context, then aggregates results. Best for parallel research, multi-area exploration, or independent fixes.
+description: Use when invoked by a Mjölnir entry command or when the human partner has 2+ independent tasks that can run without shared state. Fans them out to subagents with isolated context, then aggregates results. Best for parallel research, multi-area exploration, or independent fixes.
 user-invocable: false
 ---
 
