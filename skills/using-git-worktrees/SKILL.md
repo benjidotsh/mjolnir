@@ -1,6 +1,6 @@
 ---
 name: using-git-worktrees
-description: Use when invoked via /mjolnir:new or when the human partner explicitly asks for an isolated git worktree for feature work. Creates a worktree at .mjolnir/worktrees/<branch>/ relative to the current working tree, with no location-selection questions.
+description: Use when invoked via /mjolnir:worktree or when the human partner explicitly asks for an isolated git worktree for feature work. Creates a worktree at .mjolnir/worktrees/<branch>/ relative to the current working tree, with no location-selection questions.
 user-invocable: false
 ---
 
@@ -16,9 +16,9 @@ Git worktrees let you work on a separate branch in an isolated checkout without 
 
 ## Inputs
 
-The caller (typically `/mjolnir:new`, sometimes the human partner directly) provides a branch name. Sanitize it: lowercase, spaces → `-`, strip anything outside `[a-z0-9_/-]`.
+The caller (typically `/mjolnir:worktree`, sometimes the human partner directly) provides a branch name. Sanitize it: lowercase, spaces → `-`, strip anything outside `[a-z0-9_/-]`.
 
-If invoked by `/mjolnir:new`, consent has already been given — do not ask again. If invoked directly, the human partner asked for it — do not ask again. There is no y/n prompt in this skill.
+If invoked by `/mjolnir:worktree`, consent has already been given — do not ask again. If invoked directly, the human partner asked for it — do not ask again. There is no y/n prompt in this skill.
 
 ## Steps
 
@@ -104,7 +104,7 @@ Operating root for this flow: <absolute-path>
 
 ### Re-asking for consent
 
-The skill never asks "create a worktree?" — that decision lives upstream (in `/mjolnir:new` or in the human partner's explicit request). Asking again is friction.
+The skill never asks "create a worktree?" — that decision lives upstream (in `/mjolnir:worktree` or in the human partner's explicit request). Asking again is friction.
 
 ### Committing on behalf of the human partner
 
@@ -113,7 +113,7 @@ Only the `.gitignore` line for `.mjolnir/` is committed automatically by this sk
 ## Integration
 
 **Called by:**
-- The `/mjolnir:new` slash command — at the start of a flow when worktree isolation is requested.
+- The `/mjolnir:worktree` slash command — at the start of a flow when worktree isolation is requested.
 - The human partner directly — when they ask for an isolated workspace.
 
 **No cleanup skill ships with Mjölnir.** When the work is done, the human partner manages cleanup themselves (`git worktree remove <path>` or by deleting the directory and running `git worktree prune`).
