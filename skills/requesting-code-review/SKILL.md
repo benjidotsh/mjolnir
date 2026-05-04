@@ -1,6 +1,6 @@
 ---
 name: requesting-code-review
-description: Use when invoked via /mjolnir:new or when the human partner has completed a meaningful chunk of work and wants it reviewed. Dispatches the mjolnir:code-reviewer subagent with a crafted context (never session history) so the reviewer focuses on the work product, not your thinking trail.
+description: Use when invoked by a Mjölnir entry command or when the human partner has completed a meaningful chunk of work and wants it reviewed. Dispatches the mjolnir:code-reviewer subagent with a crafted context (never session history) so the reviewer focuses on the work product, not your thinking trail.
 user-invocable: false
 ---
 
